@@ -1,4 +1,22 @@
-//Dado a sequência de Fibonacci, onde se inicia por 0 e 1 e o próximo valor sempre será a soma dos 2 valores anteriores (exemplo: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34...), escreva um programa na linguagem que desejar onde, informado um número, ele calcule a sequência de Fibonacci e retorne uma mensagem avisando se o número informado pertence ou não a sequência.
 
-IMPORTANTE:
-Esse número pode ser informado através de qualquer entrada de sua preferência ou pode ser previamente definido no código;
+import json
+
+# Carrega os dados do arquivo json
+with open('dados_faturamento.json', 'r') as f:
+    dados_faturamento = json.load(f)
+
+# Filtra os dias com faturamento e calcula a média mensal
+faturamento_diario = [valor for valor in dados_faturamento['faturamento'] if valor > 0]
+media_mensal = sum(faturamento_diario) / len(faturamento_diario)
+
+# Calcula o menor e maior valor de faturamento diário
+menor_valor = min(faturamento_diario)
+maior_valor = max(faturamento_diario)
+
+# Conta o número de dias com faturamento acima da média mensal
+dias_acima_media = sum(1 for valor in faturamento_diario if valor > media_mensal)
+
+# Imprime os resultados
+print(f"Menor valor de faturamento diário: R${menor_valor:.2f}")
+print(f"Maior valor de faturamento diário: R${maior_valor:.2f}")
+print(f"Número de dias com faturamento acima da média mensal: {dias_acima_media}")
